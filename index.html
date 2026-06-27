@@ -66,18 +66,28 @@ ul { list-style: none; }
 
 /* ══════════════════════════════════════════
    SISTEMA DE IDIOMAS
-   .lang-es y .lang-en se muestran/ocultan
-   según el idioma activo. Por defecto: ES.
+   Dos estrategias según el tipo de elemento:
+   - .lang-es / .lang-en en divs y secciones → display block/none
+   - span.lang-es / span.lang-en en texto inline → display inline/none
+   Por defecto muestra español, body.en activa inglés.
 ══════════════════════════════════════════ */
 .lang-en { display: none; }
-.lang-es { display: contents; }
-body.en .lang-en { display: contents; }
+.lang-es { display: block; }
+body.en .lang-en { display: block; }
 body.en .lang-es { display: none; }
-/* Para elementos inline (spans, botones) */
-span.lang-en, button.lang-en, a.lang-en { display: none; }
-span.lang-es, button.lang-es, a.lang-es { display: inline; }
-body.en span.lang-en, body.en button.lang-en, body.en a.lang-en { display: inline; }
-body.en span.lang-es, body.en button.lang-es, body.en a.lang-es { display: none; }
+/* Para elementos inline dentro de párrafos, botones, spans */
+span.lang-en, a.lang-en { display: none; }
+span.lang-es, a.lang-es { display: inline; }
+body.en span.lang-en, body.en a.lang-en { display: inline; }
+body.en span.lang-es, body.en a.lang-es { display: none; }
+/* Para li dentro de ul (timeline) */
+ul.lang-en { display: none; }
+ul.lang-es { display: block; }
+body.en ul.lang-en { display: block; }
+body.en ul.lang-es { display: none; }
+/* Para h2 con clase de idioma — block por defecto ya los cubre,
+   pero nos aseguramos de que el oculto no genere margen */
+h2.lang-en, h2.lang-es { margin-bottom: 48px; }
 
 /* ══════════════════════════════════════════
    NAV
