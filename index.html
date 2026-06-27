@@ -43,16 +43,16 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 ul { list-style: none; }
 
 /* ── SISTEMA DE IDIOMAS ──
-   Solo en elementos hoja: p, h2, span, li, ul, a.
-   NUNCA en divs que participan en grid o flex. */
-.lang-en { display: none !important; }
-body.en .lang-en { display: revert !important; }
-body.en .lang-es { display: none !important; }
-/* Inline para spans y anchors */
-span.lang-es, a.lang-es { display: inline !important; }
-span.lang-en, a.lang-en { display: none !important; }
-body.en span.lang-en, body.en a.lang-en { display: inline !important; }
-body.en span.lang-es, body.en a.lang-es { display: none !important; }
+   Manejado 100% por JavaScript con data-lang="es" y data-lang="en".
+   El CSS solo oculta los elementos que JS marca como inactivos. */
+[data-lang="en"] { display: none; }
+body.en [data-lang="en"] { display: revert; }
+body.en [data-lang="es"] { display: none; }
+/* Forzar inline para spans */
+span[data-lang] { display: inline; }
+span[data-lang="en"] { display: none; }
+body.en span[data-lang="en"] { display: inline; }
+body.en span[data-lang="es"] { display: none; }
 
 /* ── NAV ── */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(13,27,42,0.93); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule-light); }
@@ -64,9 +64,9 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
 .nav__cta { color: var(--navy) !important; background: var(--teal) !important; font-weight: 600 !important; }
 .nav__cta:hover { background: var(--teal-2) !important; }
 .lang-switcher { display: flex; align-items: center; gap: 4px; margin-left: 12px; padding-left: 12px; border-left: 1px solid rgba(255,255,255,0.15); }
-.lang-btn { font-size: 20px; padding: 4px 6px; border-radius: var(--r); opacity: 0.4; transition: opacity .2s, background .2s; cursor: pointer; line-height: 1; }
-.lang-btn:hover { opacity: 0.9; background: rgba(255,255,255,0.08); }
-.lang-btn.active { opacity: 1; background: rgba(255,255,255,0.1); }
+.lang-btn { font-size: 20px; padding: 4px 6px; border-radius: var(--r); opacity: 0.7; transition: opacity .2s, background .2s; cursor: pointer; line-height: 1; }
+.lang-btn:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+.lang-btn.active { opacity: 1; background: rgba(255,255,255,0.12); }
 .nav__burger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
 .nav__burger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.7); border-radius: 2px; }
 .nav__mobile { display: none; flex-direction: column; background: var(--navy-2); border-top: 1px solid var(--rule-light); padding: 12px 20px 20px; }
@@ -220,12 +220,12 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
   <div class="nav__inner">
     <span class="nav__logo">J.U.E</span>
     <ul class="nav__links">
-      <li><a href="#sobre-mi"><span class="lang-es">Sobre mí</span><span class="lang-en">About</span></a></li>
-      <li><a href="#experiencia"><span class="lang-es">Experiencia</span><span class="lang-en">Experience</span></a></li>
-      <li><a href="#formacion"><span class="lang-es">Formación</span><span class="lang-en">Education</span></a></li>
-      <li><a href="#aptitudes"><span class="lang-es">Aptitudes</span><span class="lang-en">Skills</span></a></li>
-      <li><a href="#proyectos"><span class="lang-es">Proyectos</span><span class="lang-en">Projects</span></a></li>
-      <li><a href="#contacto" class="nav__cta"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a></li>
+      <li><a href="#sobre-mi"><span data-lang="es">Sobre mí</span><span data-lang="en">About</span></a></li>
+      <li><a href="#experiencia"><span data-lang="es">Experiencia</span><span data-lang="en">Experience</span></a></li>
+      <li><a href="#formacion"><span data-lang="es">Formación</span><span data-lang="en">Education</span></a></li>
+      <li><a href="#aptitudes"><span data-lang="es">Aptitudes</span><span data-lang="en">Skills</span></a></li>
+      <li><a href="#proyectos"><span data-lang="es">Proyectos</span><span data-lang="en">Projects</span></a></li>
+      <li><a href="#contacto" class="nav__cta"><span data-lang="es">Contacto</span><span data-lang="en">Contact</span></a></li>
       <li>
         <div class="lang-switcher">
           <button class="lang-btn active" id="btn-es" onclick="setLang('es')" title="Español">🇪🇸</button>
@@ -236,15 +236,15 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
     <button class="nav__burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
   </div>
   <div class="nav__mobile" id="mobileNav">
-    <a href="#sobre-mi"><span class="lang-es">Sobre mí</span><span class="lang-en">About</span></a>
-    <a href="#experiencia"><span class="lang-es">Experiencia</span><span class="lang-en">Experience</span></a>
-    <a href="#formacion"><span class="lang-es">Formación</span><span class="lang-en">Education</span></a>
-    <a href="#aptitudes"><span class="lang-es">Aptitudes</span><span class="lang-en">Skills</span></a>
-    <a href="#proyectos"><span class="lang-es">Proyectos</span><span class="lang-en">Projects</span></a>
-    <a href="#contacto"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a>
+    <a href="#sobre-mi"><span data-lang="es">Sobre mí</span><span data-lang="en">About</span></a>
+    <a href="#experiencia"><span data-lang="es">Experiencia</span><span data-lang="en">Experience</span></a>
+    <a href="#formacion"><span data-lang="es">Formación</span><span data-lang="en">Education</span></a>
+    <a href="#aptitudes"><span data-lang="es">Aptitudes</span><span data-lang="en">Skills</span></a>
+    <a href="#proyectos"><span data-lang="es">Proyectos</span><span data-lang="en">Projects</span></a>
+    <a href="#contacto"><span data-lang="es">Contacto</span><span data-lang="en">Contact</span></a>
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('es')">🇪🇸 Español</button>
-      <button class="lang-btn" onclick="setLang('en')">🇬🇧 English</button>
+      <button class="lang-btn active" onclick="setLang('es')" title="Español">🇪🇸</button>
+      <button class="lang-btn" onclick="setLang('en')" title="English">🇬🇧</button>
     </div>
   </div>
 </nav>
@@ -254,8 +254,8 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
   <div class="hero__grid"></div>
   <div class="hero__inner">
     <p class="hero__eyebrow">
-      <span class="lang-es">Técnico Superior · Granada, España</span>
-      <span class="lang-en">Senior Technician · Granada, Spain</span>
+      <span data-lang="es">Técnico Superior · Granada, España</span>
+      <span data-lang="en">Senior Technician · Granada, Spain</span>
     </p>
     <h1 class="hero__name">Julián<br><em>Urrea Echeverry</em></h1>
     <div class="hero__role-wrap">
@@ -263,12 +263,12 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
       <div class="hero__role"><span id="rotatingTitle">Técnico Ortoprotésico</span></div>
     </div>
     <p class="hero__desc">
-      <span class="lang-es">Diseño, fabricación y adaptación de dispositivos ortoprotésicos.<br>Biomecánica, impresión 3D y tecnología aplicada a la ortopedia.</span>
-      <span class="lang-en">Design, fabrication and fitting of orthoprosthetic devices.<br>Biomechanics, 3D printing and technology applied to orthopaedics.</span>
+      <span data-lang="es">Diseño, fabricación y adaptación de dispositivos ortoprotésicos.<br>Biomecánica, impresión 3D y tecnología aplicada a la ortopedia.</span>
+      <span data-lang="en">Design, fabrication and fitting of orthoprosthetic devices.<br>Biomechanics, 3D printing and technology applied to orthopaedics.</span>
     </p>
     <div class="hero__actions">
-      <a href="#experiencia" class="btn btn--primary"><span class="lang-es">Ver experiencia</span><span class="lang-en">View experience</span></a>
-      <a href="#contacto" class="btn btn--ghost"><span class="lang-es">Contactar</span><span class="lang-en">Contact</span></a>
+      <a href="#experiencia" class="btn btn--primary"><span data-lang="es">Ver experiencia</span><span data-lang="en">View experience</span></a>
+      <a href="#contacto" class="btn btn--ghost"><span data-lang="es">Contactar</span><span data-lang="en">Contact</span></a>
     </div>
   </div>
   <div class="hero__emg"><canvas id="emgCanvas"></canvas></div>
@@ -279,31 +279,31 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
   <div class="container">
     <div class="sobre-grid reveal">
       <div class="sobre-grid__text">
-        <span class="section__tag"><span class="lang-es">Perfil</span><span class="lang-en">Profile</span></span>
-        <h2 class="section__title"><span class="lang-es">Sobre mí</span><span class="lang-en">About me</span></h2>
-        <p class="lang-es">Técnico Ortoprotésico con más de <strong>siete años de experiencia</strong> clínica y de taller, especializado en fabricación a medida y adaptación de dispositivos ortopédicos. Actualmente, <strong>Técnico Garante</strong> en Biónika Estudios Biomecánicos, Granada.</p>
-        <p class="lang-en">Orthopaedic Technician with over <strong>seven years of clinical and workshop experience</strong>, specialised in custom fabrication and fitting of orthoprosthetic devices. Currently working as <strong>Technical Guarantor</strong> at Biónika Estudios Biomecánicos, Granada.</p>
-        <p class="lang-es">Lo que más me interesa es la intersección entre biomecánica y tecnología: análisis de la marcha con plataformas de presiones, fabricación con <strong>impresión 3D</strong> y todo lo que permita hacer este trabajo más preciso y útil.</p>
-        <p class="lang-en">My main interest lies at the intersection of biomechanics and technology: gait analysis with pressure platforms, <strong>3D printing</strong> applied to orthopaedics, and anything that makes this work more precise and useful for each patient.</p>
-        <p class="lang-es">Antes de la ortopedia, me formé en Telecomunicaciones y Sistemas de Control Automático. No fue un desvío — fue lo que me hace ver la ortopedia de otra manera.</p>
-        <p class="lang-en">Before orthopaedics, I trained in Telecommunications and Automatic Control Systems. It wasn't a detour — it's what makes me approach orthopaedics differently.</p>
+        <span class="section__tag"><span data-lang="es">Perfil</span><span data-lang="en">Profile</span></span>
+        <h2 class="section__title"><span data-lang="es">Sobre mí</span><span data-lang="en">About me</span></h2>
+        <p data-lang="es">Técnico Ortoprotésico con más de <strong>siete años de experiencia</strong> clínica y de taller, especializado en fabricación a medida y adaptación de dispositivos ortopédicos. Actualmente, <strong>Técnico Garante</strong> en Biónika Estudios Biomecánicos, Granada.</p>
+        <p data-lang="en">Orthopaedic Technician with over <strong>seven years of clinical and workshop experience</strong>, specialised in custom fabrication and fitting of orthoprosthetic devices. Currently working as <strong>Technical Guarantor</strong> at Biónika Estudios Biomecánicos, Granada.</p>
+        <p data-lang="es">Lo que más me interesa es la intersección entre biomecánica y tecnología: análisis de la marcha con plataformas de presiones, fabricación con <strong>impresión 3D</strong> y todo lo que permita hacer este trabajo más preciso y útil.</p>
+        <p data-lang="en">My main interest lies at the intersection of biomechanics and technology: gait analysis with pressure platforms, <strong>3D printing</strong> applied to orthopaedics, and anything that makes this work more precise and useful for each patient.</p>
+        <p data-lang="es">Antes de la ortopedia, me formé en Telecomunicaciones y Sistemas de Control Automático. No fue un desvío — fue lo que me hace ver la ortopedia de otra manera.</p>
+        <p data-lang="en">Before orthopaedics, I trained in Telecommunications and Automatic Control Systems. It wasn't a detour — it's what makes me approach orthopaedics differently.</p>
       </div>
       <div class="dato-grid">
         <div class="dato-card">
           <span class="dato-card__num">7+</span>
-          <span class="dato-card__label"><span class="lang-es">Años de experiencia clínica</span><span class="lang-en">Years of clinical experience</span></span>
+          <span class="dato-card__label"><span data-lang="es">Años de experiencia clínica</span><span data-lang="en">Years of clinical experience</span></span>
         </div>
         <div class="dato-card">
           <span class="dato-card__num">3</span>
-          <span class="dato-card__label"><span class="lang-es">Disciplinas técnicas combinadas</span><span class="lang-en">Technical disciplines combined</span></span>
+          <span class="dato-card__label"><span data-lang="es">Disciplinas técnicas combinadas</span><span data-lang="en">Technical disciplines combined</span></span>
         </div>
         <div class="dato-card">
           <span class="dato-card__num">2</span>
-          <span class="dato-card__label"><span class="lang-es">Titulaciones de Técnico Superior</span><span class="lang-en">Higher Technician qualifications</span></span>
+          <span class="dato-card__label"><span data-lang="es">Titulaciones de Técnico Superior</span><span data-lang="en">Higher Technician qualifications</span></span>
         </div>
         <div class="dato-card dato-card--wide">
           <span class="dato-card__num">Garante</span>
-          <span class="dato-card__label"><span class="lang-es">Cargo actual · Biónika Estudios Biomecánicos · Granada</span><span class="lang-en">Current role · Biónika Estudios Biomecánicos · Granada</span></span>
+          <span class="dato-card__label"><span data-lang="es">Cargo actual · Biónika Estudios Biomecánicos · Granada</span><span data-lang="en">Current role · Biónika Estudios Biomecánicos · Granada</span></span>
         </div>
       </div>
     </div>
@@ -314,17 +314,17 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
 <section class="section section--dark" id="experiencia">
   <div class="container">
     <div class="reveal">
-      <span class="section__tag"><span class="lang-es">Trayectoria</span><span class="lang-en">Career</span></span>
-      <h2 class="section__title"><span class="lang-es">Experiencia profesional</span><span class="lang-en">Professional experience</span></h2>
+      <span class="section__tag"><span data-lang="es">Trayectoria</span><span data-lang="en">Career</span></span>
+      <h2 class="section__title"><span data-lang="es">Experiencia profesional</span><span data-lang="en">Professional experience</span></h2>
     </div>
     <div class="timeline reveal">
 
       <div class="timeline__item">
         <div class="timeline__dot"></div>
-        <div class="timeline__period">2024 – <span class="lang-es">Actualidad</span><span class="lang-en">Present</span></div>
+        <div class="timeline__period">2024 – <span data-lang="es">Actualidad</span><span data-lang="en">Present</span></div>
         <div class="timeline__company">Biónika Estudios Biomecánicos · Granada</div>
-        <div class="timeline__role"><span class="lang-es">Técnico Garante</span><span class="lang-en">Technical Guarantor</span></div>
-        <ul class="timeline__list lang-es">
+        <div class="timeline__role"><span data-lang="es">Técnico Garante</span><span data-lang="en">Technical Guarantor</span></div>
+        <ul class="timeline__list" data-lang="es">
           <li>Servicio técnico de movilidad y posicionamiento para pacientes.</li>
           <li>Representación técnica y comercial ante hospitales y especialistas médicos.</li>
           <li>Elaboración, despliegue y puesta en marcha de <a href="https://bionika.es" target="_blank" rel="noopener">bionika.es</a> — subida a IONOS, configuración de dominio y redirecciones.</li>
@@ -332,7 +332,7 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
           <li>Posicionamiento web orgánico: SEO on-page, arquitectura de URLs, metadatos y estructura semántica.</li>
           <li>Despliegue y mantenimiento de sitios estáticos en GitHub Pages (HTML/CSS/JS).</li>
         </ul>
-        <ul class="timeline__list lang-en">
+        <ul class="timeline__list" data-lang="en">
           <li>Technical service for mobility and positioning products for patients.</li>
           <li>Technical and commercial representation with hospitals and medical specialists.</li>
           <li>Development, deployment and launch of <a href="https://bionika.es" target="_blank" rel="noopener">bionika.es</a> — IONOS hosting, domain configuration and redirects.</li>
@@ -346,13 +346,13 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
         <div class="timeline__dot"></div>
         <div class="timeline__period">2019 – 2024</div>
         <div class="timeline__company">Ortopedia del Río SL · Almería</div>
-        <div class="timeline__role"><span class="lang-es">Técnico Superior en Ortoprótesis</span><span class="lang-en">Senior Orthopaedic Technician</span></div>
-        <ul class="timeline__list lang-es">
+        <div class="timeline__role"><span data-lang="es">Técnico Superior en Ortoprótesis</span><span data-lang="en">Senior Orthopaedic Technician</span></div>
+        <ul class="timeline__list" data-lang="es">
           <li>Responsable de taller: fabricación a medida de dispositivos ortoprotésicos.</li>
           <li>Adaptación y distribución de productos ortopédicos personalizados.</li>
           <li>Mantenimiento y reparación de productos de apoyo a la movilidad.</li>
         </ul>
-        <ul class="timeline__list lang-en">
+        <ul class="timeline__list" data-lang="en">
           <li>Workshop manager: custom fabrication of orthoprosthetic devices.</li>
           <li>Fitting and distribution of personalised orthopedic products.</li>
           <li>Maintenance and repair of mobility support products.</li>
@@ -363,13 +363,13 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
         <div class="timeline__dot"></div>
         <div class="timeline__period">2016</div>
         <div class="timeline__company">Big One · Granada</div>
-        <div class="timeline__role"><span class="lang-es">Técnico en Telecomunicaciones e Informática</span><span class="lang-en">Telecommunications & IT Technician</span></div>
-        <ul class="timeline__list lang-es">
+        <div class="timeline__role"><span data-lang="es">Técnico en Telecomunicaciones e Informática</span><span data-lang="en">Telecommunications & IT Technician</span></div>
+        <ul class="timeline__list" data-lang="es">
           <li>Preparación y configuración de dispositivos de control RC.</li>
           <li>Mantenimiento de sistemas de telecomunicaciones.</li>
           <li>Electrónica aplicada a la modificación de dispositivos.</li>
         </ul>
-        <ul class="timeline__list lang-en">
+        <ul class="timeline__list" data-lang="en">
           <li>Setup and configuration of RC control devices.</li>
           <li>Maintenance of telecommunications systems.</li>
           <li>Electronics applied to device modification.</li>
@@ -380,13 +380,13 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
         <div class="timeline__dot"></div>
         <div class="timeline__period">2014</div>
         <div class="timeline__company">ICR · Granada</div>
-        <div class="timeline__role"><span class="lang-es">Técnico Superior en Sistemas de Control Automático</span><span class="lang-en">Senior Technician in Automatic Control Systems</span></div>
-        <ul class="timeline__list lang-es">
+        <div class="timeline__role"><span data-lang="es">Técnico Superior en Sistemas de Control Automático</span><span data-lang="en">Senior Technician in Automatic Control Systems</span></div>
+        <ul class="timeline__list" data-lang="es">
           <li>Gestión y control en construcción de sistemas automáticos.</li>
           <li>Desarrollo de sistemas de medida y regulación.</li>
           <li>Mantenimiento de instalaciones automáticas industriales.</li>
         </ul>
-        <ul class="timeline__list lang-en">
+        <ul class="timeline__list" data-lang="en">
           <li>Management and control in automatic systems construction.</li>
           <li>Development of measurement and regulation systems.</li>
           <li>Maintenance of industrial automatic installations.</li>
@@ -401,28 +401,28 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
 <section class="section section--cream-2" id="formacion">
   <div class="container">
     <div class="reveal">
-      <span class="section__tag"><span class="lang-es">Educación</span><span class="lang-en">Education</span></span>
-      <h2 class="section__title"><span class="lang-es">Formación</span><span class="lang-en">Education & Training</span></h2>
+      <span class="section__tag"><span data-lang="es">Educación</span><span data-lang="en">Education</span></span>
+      <h2 class="section__title"><span data-lang="es">Formación</span><span data-lang="en">Education & Training</span></h2>
     </div>
     <div class="edu-grid reveal">
       <div class="edu-card">
         <span class="edu-card__year">2017 – 2019</span>
-        <div class="edu-card__title"><span class="lang-es">Técnico Superior en Ortoprótesis y Productos de Apoyo</span><span class="lang-en">Higher Technician in Orthotics, Prosthetics & Assistive Products</span></div>
+        <div class="edu-card__title"><span data-lang="es">Técnico Superior en Ortoprótesis y Productos de Apoyo</span><span data-lang="en">Higher Technician in Orthotics, Prosthetics & Assistive Products</span></div>
         <div class="edu-card__place">CPIFP Aynadamar · Granada</div>
       </div>
       <div class="edu-card">
         <span class="edu-card__year">2012 – 2014</span>
-        <div class="edu-card__title"><span class="lang-es">Técnico Superior en Sistemas de Regulación y Control Automáticos</span><span class="lang-en">Higher Technician in Automatic Regulation and Control Systems</span></div>
+        <div class="edu-card__title"><span data-lang="es">Técnico Superior en Sistemas de Regulación y Control Automáticos</span><span data-lang="en">Higher Technician in Automatic Regulation and Control Systems</span></div>
         <div class="edu-card__place">ICR · Granada</div>
       </div>
       <div class="edu-card">
         <span class="edu-card__year">2014 – 2016</span>
-        <div class="edu-card__title"><span class="lang-es">Técnico en Sistemas de Telecomunicaciones e Informáticos</span><span class="lang-en">Technician in Telecommunications and IT Systems</span></div>
+        <div class="edu-card__title"><span data-lang="es">Técnico en Sistemas de Telecomunicaciones e Informáticos</span><span data-lang="en">Technician in Telecommunications and IT Systems</span></div>
         <div class="edu-card__place">IES · Granada</div>
       </div>
       <div class="edu-card">
         <span class="edu-card__year">2023</span>
-        <div class="edu-card__title"><span class="lang-es">Actualización de Fabricación Ortoprotésica</span><span class="lang-en">Orthoprosthetic Fabrication Update</span></div>
+        <div class="edu-card__title"><span data-lang="es">Actualización de Fabricación Ortoprotésica</span><span data-lang="en">Orthoprosthetic Fabrication Update</span></div>
         <div class="edu-card__place">Ayudas y Distribuciones Ideo</div>
       </div>
       <div class="edu-card">
@@ -432,17 +432,17 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
       </div>
       <div class="edu-card">
         <span class="edu-card__year">2020</span>
-        <div class="edu-card__title"><span class="lang-es">Curso de Alineación TT &amp; TF</span><span class="lang-en">TT &amp; TF Alignment Course</span></div>
+        <div class="edu-card__title"><span data-lang="es">Curso de Alineación TT &amp; TF</span><span data-lang="en">TT &amp; TF Alignment Course</span></div>
         <div class="edu-card__place">Ottobock Ibérica · Madrid</div>
       </div>
       <div class="edu-card edu-card--cert">
-        <span class="edu-card__year">2024 · <span class="lang-es">Certificado</span><span class="lang-en">Certificate</span></span>
-        <div class="edu-card__title"><span class="lang-es">Java — Nivel Básico</span><span class="lang-en">Java — Basic Level</span></div>
+        <span class="edu-card__year">2024 · <span data-lang="es">Certificado</span><span data-lang="en">Certificate</span></span>
+        <div class="edu-card__title"><span data-lang="es">Java — Nivel Básico</span><span data-lang="en">Java — Basic Level</span></div>
         <div class="edu-card__place">Udemy · Víctor Ramos</div>
       </div>
       <div class="edu-card edu-card--cert">
-        <span class="edu-card__year">2024 · <span class="lang-es">Certificado</span><span class="lang-en">Certificate</span></span>
-        <div class="edu-card__title"><span class="lang-es">Java para Principiantes</span><span class="lang-en">Java for Beginners</span></div>
+        <span class="edu-card__year">2024 · <span data-lang="es">Certificado</span><span data-lang="en">Certificate</span></span>
+        <div class="edu-card__title"><span data-lang="es">Java para Principiantes</span><span data-lang="en">Java for Beginners</span></div>
         <div class="edu-card__place">Udemy · Dumitru Pirontea</div>
       </div>
     </div>
@@ -453,73 +453,73 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
 <section class="section section--cream" id="aptitudes">
   <div class="container">
     <div class="reveal">
-      <span class="section__tag"><span class="lang-es">Aptitudes</span><span class="lang-en">Skills</span></span>
-      <h2 class="section__title"><span class="lang-es">Habilidades</span><span class="lang-en">Skills & Expertise</span></h2>
+      <span class="section__tag"><span data-lang="es">Aptitudes</span><span data-lang="en">Skills</span></span>
+      <h2 class="section__title"><span data-lang="es">Habilidades</span><span data-lang="en">Skills & Expertise</span></h2>
     </div>
     <div class="skills-layout reveal">
       <div class="skills-grid" id="skillsGrid">
         <div class="skill-item" data-score="10">
           <div class="skill-item__header">
-            <span class="skill-item__name"><span class="lang-es">Trabajo en equipo</span><span class="lang-en">Teamwork</span></span>
+            <span class="skill-item__name"><span data-lang="es">Trabajo en equipo</span><span data-lang="en">Teamwork</span></span>
             <span class="skill-item__val">10/10</span>
           </div>
           <div class="skill-item__bar"><div class="skill-item__fill"></div></div>
         </div>
         <div class="skill-item" data-score="9">
           <div class="skill-item__header">
-            <span class="skill-item__name"><span class="lang-es">Resolución de problemas</span><span class="lang-en">Problem solving</span></span>
+            <span class="skill-item__name"><span data-lang="es">Resolución de problemas</span><span data-lang="en">Problem solving</span></span>
             <span class="skill-item__val">9/10</span>
           </div>
           <div class="skill-item__bar"><div class="skill-item__fill"></div></div>
         </div>
         <div class="skill-item" data-score="9">
           <div class="skill-item__header">
-            <span class="skill-item__name"><span class="lang-es">Adaptabilidad</span><span class="lang-en">Adaptability</span></span>
+            <span class="skill-item__name"><span data-lang="es">Adaptabilidad</span><span data-lang="en">Adaptability</span></span>
             <span class="skill-item__val">9/10</span>
           </div>
           <div class="skill-item__bar"><div class="skill-item__fill"></div></div>
         </div>
         <div class="skill-item" data-score="8">
           <div class="skill-item__header">
-            <span class="skill-item__name"><span class="lang-es">Comunicación efectiva</span><span class="lang-en">Effective communication</span></span>
+            <span class="skill-item__name"><span data-lang="es">Comunicación efectiva</span><span data-lang="en">Effective communication</span></span>
             <span class="skill-item__val">8/10</span>
           </div>
           <div class="skill-item__bar"><div class="skill-item__fill"></div></div>
         </div>
         <div class="skill-item" data-score="8">
           <div class="skill-item__header">
-            <span class="skill-item__name"><span class="lang-es">Inteligencia emocional</span><span class="lang-en">Emotional intelligence</span></span>
+            <span class="skill-item__name"><span data-lang="es">Inteligencia emocional</span><span data-lang="en">Emotional intelligence</span></span>
             <span class="skill-item__val">8/10</span>
           </div>
           <div class="skill-item__bar"><div class="skill-item__fill"></div></div>
         </div>
         <div class="skill-item" data-score="8">
           <div class="skill-item__header">
-            <span class="skill-item__name"><span class="lang-es">Pensamiento analítico</span><span class="lang-en">Analytical thinking</span></span>
+            <span class="skill-item__name"><span data-lang="es">Pensamiento analítico</span><span data-lang="en">Analytical thinking</span></span>
             <span class="skill-item__val">8/10</span>
           </div>
           <div class="skill-item__bar"><div class="skill-item__fill"></div></div>
         </div>
       </div>
       <div>
-        <div class="tags-block__title"><span class="lang-es">Áreas técnicas</span><span class="lang-en">Technical areas</span></div>
+        <div class="tags-block__title"><span data-lang="es">Áreas técnicas</span><span data-lang="en">Technical areas</span></div>
         <div class="tags">
-          <span class="tag"><span class="lang-es">Ortopedia técnica</span><span class="lang-en">Orthopaedic technology</span></span>
-          <span class="tag"><span class="lang-es">Biomecánica clínica</span><span class="lang-en">Clinical biomechanics</span></span>
+          <span class="tag"><span data-lang="es">Ortopedia técnica</span><span data-lang="en">Orthopaedic technology</span></span>
+          <span class="tag"><span data-lang="es">Biomecánica clínica</span><span data-lang="en">Clinical biomechanics</span></span>
           <span class="tag">Impresión 3D / 3D Printing</span>
-          <span class="tag"><span class="lang-es">Análisis de la marcha</span><span class="lang-en">Gait analysis</span></span>
-          <span class="tag"><span class="lang-es">Plataforma de presiones</span><span class="lang-en">Pressure platform</span></span>
-          <span class="tag"><span class="lang-es">Fabricación a medida</span><span class="lang-en">Custom fabrication</span></span>
+          <span class="tag"><span data-lang="es">Análisis de la marcha</span><span data-lang="en">Gait analysis</span></span>
+          <span class="tag"><span data-lang="es">Plataforma de presiones</span><span data-lang="en">Pressure platform</span></span>
+          <span class="tag"><span data-lang="es">Fabricación a medida</span><span data-lang="en">Custom fabrication</span></span>
           <span class="tag">SEO on-page</span>
           <span class="tag">GitHub Pages</span>
           <span class="tag">Hosting · IONOS</span>
-          <span class="tag"><span class="lang-es">Configuración DNS</span><span class="lang-en">DNS configuration</span></span>
+          <span class="tag"><span data-lang="es">Configuración DNS</span><span data-lang="en">DNS configuration</span></span>
           <span class="tag">Arduino</span>
-          <span class="tag"><span class="lang-es">Electrónica</span><span class="lang-en">Electronics</span></span>
+          <span class="tag"><span data-lang="es">Electrónica</span><span data-lang="en">Electronics</span></span>
           <span class="tag">Java</span>
           <span class="tag">HTML / CSS / JS</span>
           <span class="tag">Godot Engine</span>
-          <span class="tag"><span class="lang-es">Telecomunicaciones</span><span class="lang-en">Telecommunications</span></span>
+          <span class="tag"><span data-lang="es">Telecomunicaciones</span><span data-lang="en">Telecommunications</span></span>
         </div>
       </div>
     </div>
@@ -531,40 +531,40 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
   <div class="container">
     <div class="reveal">
       <span class="section__tag">Portfolio</span>
-      <h2 class="section__title"><span class="lang-es">Proyectos</span><span class="lang-en">Projects</span></h2>
+      <h2 class="section__title"><span data-lang="es">Proyectos</span><span data-lang="en">Projects</span></h2>
     </div>
     <div class="projects-grid reveal">
       <div class="project-card">
         <div class="project-card__icon">🦾</div>
-        <div class="project-card__tag"><span class="lang-es">Web corporativa · Biónika</span><span class="lang-en">Corporate website · Biónika</span></div>
+        <div class="project-card__tag"><span data-lang="es">Web corporativa · Biónika</span><span data-lang="en">Corporate website · Biónika</span></div>
         <div class="project-card__title">bionika.es</div>
-        <p class="project-card__desc lang-es">Elaboración, despliegue y puesta en marcha de la web corporativa de Biónika Estudios Biomecánicos. Subida a IONOS, configuración de dominio y redirecciones.</p>
-        <p class="project-card__desc lang-en">Development, deployment and launch of the corporate website for Biónika Estudios Biomecánicos. IONOS hosting, domain configuration and redirects.</p>
-        <a href="https://bionika.es" class="project-card__link" target="_blank" rel="noopener"><span class="lang-es">Ver web →</span><span class="lang-en">Visit site →</span></a>
+        <p class="project-card__desc" data-lang="es">Elaboración, despliegue y puesta en marcha de la web corporativa de Biónika Estudios Biomecánicos. Subida a IONOS, configuración de dominio y redirecciones.</p>
+        <p class="project-card__desc" data-lang="en">Development, deployment and launch of the corporate website for Biónika Estudios Biomecánicos. IONOS hosting, domain configuration and redirects.</p>
+        <a href="https://bionika.es" class="project-card__link" target="_blank" rel="noopener"><span data-lang="es">Ver web →</span><span data-lang="en">Visit site →</span></a>
       </div>
       <div class="project-card">
         <div class="project-card__icon">📝</div>
-        <div class="project-card__tag"><span class="lang-es">Blog · Divulgación</span><span class="lang-en">Blog · Health outreach</span></div>
+        <div class="project-card__tag"><span data-lang="es">Blog · Divulgación</span><span data-lang="en">Blog · Health outreach</span></div>
         <div class="project-card__title">Lo Que Nadie Te Explica</div>
-        <p class="project-card__desc lang-es">Blog de divulgación ortopédica para pacientes. Más de 44 artículos sobre biomecánica, ortesis, pisada y movilidad. HTML/CSS/JS puro, alojado en GitHub Pages.</p>
-        <p class="project-card__desc lang-en">Orthopaedic outreach blog for patients. Over 44 articles on biomechanics, orthotics, gait and mobility. Plain HTML/CSS/JS, hosted on GitHub Pages.</p>
-        <a href="https://bionicablog.github.io/bionica" class="project-card__link" target="_blank" rel="noopener"><span class="lang-es">Ver blog →</span><span class="lang-en">Visit blog →</span></a>
+        <p class="project-card__desc" data-lang="es">Blog de divulgación ortopédica para pacientes. Más de 44 artículos sobre biomecánica, ortesis, pisada y movilidad. HTML/CSS/JS puro, alojado en GitHub Pages.</p>
+        <p class="project-card__desc" data-lang="en">Orthopaedic outreach blog for patients. Over 44 articles on biomechanics, orthotics, gait and mobility. Plain HTML/CSS/JS, hosted on GitHub Pages.</p>
+        <a href="https://bionicablog.github.io/bionica" class="project-card__link" target="_blank" rel="noopener"><span data-lang="es">Ver blog →</span><span data-lang="en">Visit blog →</span></a>
       </div>
       <div class="project-card">
         <div class="project-card__icon">🎮</div>
-        <div class="project-card__tag"><span class="lang-es">Desarrollo · Godot Engine</span><span class="lang-en">Development · Godot Engine</span></div>
-        <div class="project-card__title"><span class="lang-es">Videojuego en Godot</span><span class="lang-en">Godot Game Project</span></div>
-        <p class="project-card__desc lang-es">Proyecto de desarrollo de videojuego con Godot Engine. Programación de mecánicas, diseño de niveles y lógica de juego. En desarrollo activo.</p>
-        <p class="project-card__desc lang-en">Video game development project using Godot Engine. Mechanics programming, level design and game logic. In active development.</p>
-        <span class="project-card__link" style="color:rgba(0,191,165,0.4);cursor:default;"><span class="lang-es">En desarrollo</span><span class="lang-en">In development</span></span>
+        <div class="project-card__tag"><span data-lang="es">Desarrollo · Godot Engine</span><span data-lang="en">Development · Godot Engine</span></div>
+        <div class="project-card__title"><span data-lang="es">Videojuego en Godot</span><span data-lang="en">Godot Game Project</span></div>
+        <p class="project-card__desc" data-lang="es">Proyecto de desarrollo de videojuego con Godot Engine. Programación de mecánicas, diseño de niveles y lógica de juego. En desarrollo activo.</p>
+        <p class="project-card__desc" data-lang="en">Video game development project using Godot Engine. Mechanics programming, level design and game logic. In active development.</p>
+        <span class="project-card__link" style="color:rgba(0,191,165,0.4);cursor:default;"><span data-lang="es">En desarrollo</span><span data-lang="en">In development</span></span>
       </div>
       <div class="project-card">
         <div class="project-card__icon">⚙️</div>
-        <div class="project-card__tag"><span class="lang-es">Freelance · Desarrollo web</span><span class="lang-en">Freelance · Web development</span></div>
-        <div class="project-card__title"><span class="lang-es">Apps y webs freelance</span><span class="lang-en">Freelance apps & websites</span></div>
-        <p class="project-card__desc lang-es">Desarrollo de aplicaciones y webs para clientes del sector sanitario y empresarial. HTML, CSS, JavaScript.</p>
-        <p class="project-card__desc lang-en">Development of apps and websites for healthcare and business clients. HTML, CSS, JavaScript.</p>
-        <a href="mailto:loquenadieteexplica.blog@gmail.com" class="project-card__link"><span class="lang-es">Contactar →</span><span class="lang-en">Get in touch →</span></a>
+        <div class="project-card__tag"><span data-lang="es">Freelance · Desarrollo web</span><span data-lang="en">Freelance · Web development</span></div>
+        <div class="project-card__title"><span data-lang="es">Apps y webs freelance</span><span data-lang="en">Freelance apps & websites</span></div>
+        <p class="project-card__desc" data-lang="es">Desarrollo de aplicaciones y webs para clientes del sector sanitario y empresarial. HTML, CSS, JavaScript.</p>
+        <p class="project-card__desc" data-lang="en">Development of apps and websites for healthcare and business clients. HTML, CSS, JavaScript.</p>
+        <a href="mailto:loquenadieteexplica.blog@gmail.com" class="project-card__link"><span data-lang="es">Contactar →</span><span data-lang="en">Get in touch →</span></a>
       </div>
     </div>
   </div>
@@ -575,10 +575,10 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
   <div class="container">
     <div class="contact-wrap reveal">
       <div>
-        <span class="section__tag"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></span>
-        <div class="contact-text"><span class="lang-es">¿Hablamos?</span><span class="lang-en">Let's talk.</span></div>
-        <p class="contact-sub lang-es">Si tienes un proyecto, una colaboración o simplemente quieres hacer una consulta, escríbeme. Respondo a todo.</p>
-        <p class="contact-sub lang-en">If you have a project, a collaboration in mind, or just want to ask something, write to me. I reply to everything.</p>
+        <span class="section__tag"><span data-lang="es">Contacto</span><span data-lang="en">Contact</span></span>
+        <div class="contact-text"><span data-lang="es">¿Hablamos?</span><span data-lang="en">Let's talk.</span></div>
+        <p class="contact-sub" data-lang="es">Si tienes un proyecto, una colaboración o simplemente quieres hacer una consulta, escríbeme. Respondo a todo.</p>
+        <p class="contact-sub" data-lang="en">If you have a project, a collaboration in mind, or just want to ask something, write to me. I reply to everything.</p>
         <div class="contact-links">
           <a href="mailto:loquenadieteexplica.blog@gmail.com" class="contact-link">
             <div class="contact-link__icon">✉</div>
@@ -595,11 +595,11 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
         </div>
       </div>
       <div class="blog-block">
-        <div class="blog-block__label"><span class="lang-es">Divulgación</span><span class="lang-en">Outreach</span></div>
+        <div class="blog-block__label"><span data-lang="es">Divulgación</span><span data-lang="en">Outreach</span></div>
         <div class="blog-block__title">Lo Que Nadie Te Explica</div>
-        <p class="blog-block__desc lang-es">Blog de ortopedia técnica para pacientes. Artículos claros sobre biomecánica, pisada, ortesis y movilidad.</p>
-        <p class="blog-block__desc lang-en">Orthopaedic outreach blog for patients. Clear articles on biomechanics, gait, orthotics and mobility.</p>
-        <a href="https://bionicablog.github.io/bionica" class="btn btn--primary" target="_blank" rel="noopener"><span class="lang-es">Visitar el blog →</span><span class="lang-en">Visit the blog →</span></a>
+        <p class="blog-block__desc" data-lang="es">Blog de ortopedia técnica para pacientes. Artículos claros sobre biomecánica, pisada, ortesis y movilidad.</p>
+        <p class="blog-block__desc" data-lang="en">Orthopaedic outreach blog for patients. Clear articles on biomechanics, gait, orthotics and mobility.</p>
+        <a href="https://bionicablog.github.io/bionica" class="btn btn--primary" target="_blank" rel="noopener"><span data-lang="es">Visitar el blog →</span><span data-lang="en">Visit the blog →</span></a>
       </div>
     </div>
   </div>
@@ -611,7 +611,7 @@ body.en span.lang-es, body.en a.lang-es { display: none !important; }
     <span class="footer__copy">© 2026 Julián Eduardo Urrea Echeverry · Granada</span>
     <div class="footer__links">
       <a href="https://bionicablog.github.io/bionica" target="_blank" rel="noopener">Blog LQNTE</a>
-      <a href="mailto:loquenadieteexplica.blog@gmail.com"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a>
+      <a href="mailto:loquenadieteexplica.blog@gmail.com"><span data-lang="es">Contacto</span><span data-lang="en">Contact</span></a>
     </div>
   </div>
 </footer>
